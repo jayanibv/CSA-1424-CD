@@ -1,0 +1,31 @@
+%{
+#include <stdio.h>
+int positive_count = 0, negative_count = 0;
+%}
+
+%%
+[-]?[0-9]+   { 
+                int num = atoi(yytext);
+                if (num < 0) {
+                    printf("Negative number: %d\n", num);
+                    negative_count++;
+                } else {
+                    printf("Positive number: %d\n", num);
+                    positive_count++;
+                }
+              }
+\n   {/* Do nothing on new lines */}
+.    {/* Ignore other characters */}
+%%
+
+int main() {
+    printf("Enter numbers (Ctrl+D to stop input):\n");
+    yylex();
+    printf("\nTotal Positive Numbers: %d\n", positive_count);
+    printf("Total Negative Numbers: %d\n", negative_count);
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}

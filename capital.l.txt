@@ -1,0 +1,16 @@
+%{
+#include<stdio.h>
+%}
+
+%%
+[A-Z]+  { printf("%s\n", yytext); }
+.  ;  // Ignore all other characters
+%%
+
+int yywrap() { return 1; }
+
+int main()  {
+    printf("Enter the input string:\n");
+    yylex();
+    return 0;
+}
